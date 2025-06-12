@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - AV-House</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0eafc, #000000);
+    }
+    .login-card {
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+
+  <div class="card p-5 text-center login-card" style="width: 100%; max-width: 400px;">
+    
+    <!-- Logo -->
+    <img src="img/logo1.png" alt="Logo AV-House" class="mb-4" style="max-height: 90px;">
+    
+    <h4 class="mb-4">Iniciar Sesión</h4>
+
+    <form onsubmit="event.preventDefault(); validarLogin();">
+      <div class="mb-3 text-start">
+        <label for="usuario" class="form-label">Usuario</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-person"></i></span>
+          <input type="text" class="form-control" id="usuario" placeholder="Ingresa tu usuario" required>
+        </div>
+      </div>
+      <div class="mb-4 text-start">
+        <label for="clave" class="form-label">Contraseña</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-lock"></i></span>
+          <input type="password" class="form-control" id="clave" placeholder="Ingresa tu contraseña" required>
+        </div>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-outline-primary btn-lg">Ingresar</button>
+      </div>
+    </form>
+
+    <!-- Mensaje de error -->
+    <div id="mensajeError" class="text-danger mt-3" style="display: none;">
+      Usuario o contraseña incorrectos
+    </div>
+
+  </div>
+
+  <script>
+    function validarLogin() {
+      const usuario = document.getElementById('usuario').value.trim();
+      const clave = document.getElementById('clave').value.trim();
+      const mensajeError = document.getElementById('mensajeError');
+
+      // Credenciales válidas (puedes cambiar esto)
+      const usuarioValido = "CECILIA ROGEL";
+      const claveValida = "123456789";
+
+      if (usuario === usuarioValido && clave === claveValida) {
+        // Redirigir al menú si es válido
+        window.location.href = "menu.html";
+      } else {
+        // Mostrar mensaje de error
+        mensajeError.style.display = "block";
+      }
+    }
+  </script>
+
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

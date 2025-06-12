@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Av-House - Sistema de Cotizaciones</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container py-5" id="cotizacion">
+
+  <div class="border p-4 mb-4 bg-white">
+    <div class="row">
+      <div class="col-md-3 d-flex align-items-center">
+        <img src="img/logo1.png" alt="Logo Av-House" class="img-fluid" style="max-height: 100px;">
+      </div>
+      <div class="col-md-9">
+        <div class="row mb-2">
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Compañía:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Nombre de la compañía">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Nombre del Evento:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Nombre del evento">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Cliente:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Nombre del cliente">
+          </div>
+        </div>
+  
+        <div class="row mb-2">
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Puesto:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Comprador">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Fecha Montaje:</strong></label>
+            <input type="date" class="form-control form-control-sm" value="aaaa-mm-dd">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Horario Montaje:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="dd-mm-aa 00:00">
+          </div>
+        </div>
+  
+        <div class="row mb-2">
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Fecha de Inicio del Evento:</strong></label>
+            <input type="date" class="form-control form-control-sm" value="aaaa-mm-dd">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Fecha de Término del Evento:</strong></label>
+            <input type="date" class="form-control form-control-sm">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Salón:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Nombre">
+          </div>
+        </div>
+  
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <label class="form-label mb-0"><strong>Dirección:</strong></label>
+            <textarea class="form-control form-control-sm" rows="2" placeholder="Av. Industria Militar s/n, Puerta 2, Acceso A, Piso -2, Hipódromo de las Américas, Col. Residencial Militar, Ciudad de México"></textarea>
+          </div>
+        </div>
+  
+        <div class="row mb-2">
+          <div class="col-md-8">
+            <label class="form-label mb-0"><strong>Lugar:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Frontera No. 88, Col. Roma Norte, Cuauhtémoc, CDMX">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Contacto en sitio:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Nombre del contacto">
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Teléfono:</strong></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Número de contacto">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label mb-0"><strong>Correo:</strong></label>
+            <input type="email" class="form-control form-control-sm" placeholder="Correo electronico">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AGREGAR CONTACTO -->
+  <div class="modal fade" id="modalContacto" tabindex="-1" aria-labelledby="modalContactoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalContactoLabel">Agregar Nuevo Contacto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nuevoNombre">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="nuevoTelefono">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" class="form-control" id="nuevoCorreo">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="guardarContacto()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULARIO DE RENTA -->
+  <div class="card mb-4">
+    <div class="card-header">Agregar Equipos a Rentar</div>
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label">Descripción del equipo</label>
+          <select class="form-select" id="descripcion">
+            <optgroup label="Laptops">
+              <option value="MacBook 13” pro Core i5 ram 8gb SSD 256" data-precio="1000">MacBook 13” pro Core i5 ram 8gb SSD 256</option>
+              <option value="MacBook 16” pro Core i7 ram 16gb SSD 512" data-precio="950">MacBook 16” pro Core i7 ram 16gb SSD 512</option>
+              <option value="Laptop Core i5 2.0, Ram 8gb, SSD 120GB" data-precio="290">Laptop Core i5 2.0, Ram 8gb, SSD 120GB</option>
+              <option value="Laptop Core i7 RAM 16 SSD 256 Pantalla 14”" data-precio="310">Laptop Core i7 RAM 16 SSD 256 Pantalla 14”</option>
+            </optgroup>
+            <optgroup label="PC de Escritorio">
+              <option value="Pc de escritorio Core i5 2.0 Ram 8gb D-D 500" data-precio="290">Pc de escritorio Core i5 2.0 Ram 8gb D-D 500</option>
+              <option value="Pc de escritorio Core i7 RAM8GB DD 50GB" data-precio="3100">Pc de escritorio Core i7 RAM8GB DD 50GB</option>
+            </optgroup>
+            <optgroup label="Servidores y Tablets">
+              <option value="Servidor 2.6ghz Ram 8 gb D-D320gb lcd 17" data-precio="1150">Servidor 2.6ghz Ram 8 gb D-D320gb lcd 17"</option>
+              <option value="Tablet Samsung galaxy" data-precio="290">Tablet Samsung galaxy</option>
+            </optgroup>
+            <optgroup label="Impresoras y Multifuncionales">
+              <option value="Impresoras monocromática de 20ppm" data-precio="990">Impresoras monocromática de 20ppm</option>
+              <option value="Multifuncionales impresión monocromática de 20ppm B/N" data-precio="1050">Multifuncionales impresión monocromática de 20ppm B/N</option>
+              <option value="Multifuncionales impresión Color 40 ppm" data-precio="1950">Multifuncionales impresión Color 40 ppm</option>
+            </optgroup>
+            <optgroup label="Lectores y Pantallas">
+              <option value="Lectores de código de barras 1d, 2d" data-precio="75">Lectores de código de barras 1d, 2d</option>
+              <option value="Pantallas de proyección 180 x 180" data-precio="350">Pantallas de proyección 180 x 180</option>
+              <option value="TV LCD/LED de 40” con pedestal" data-precio="550">TV LCD/LED de 40” con pedestal</option>
+            </optgroup>
+            <optgroup label="Proyectores y Redes">
+              <option value="Proyectores de 3500 lúmenes EPSON" data-precio="490">Proyectores de 3500 lúmenes EPSON</option>
+              <option value="Instalación de red alámbrica por equipo" data-precio="1500">Instalación de red alámbrica por equipo</option>
+            </optgroup>
+            <optgroup label="Equipos adicionales">
+              <option value="Switch 24 Puertos" data-precio="210">Switch 24 Puertos</option>
+              <option value="NOBREAK 500 VA" data-precio="90">NOBREAK 500 VA</option>
+              <option value="Web cam 2mp" data-precio="23">Web cam 2mp</option>
+              <option value="Montaje, Asesoría Técnica en sitio (8 hrs)" data-precio="950">Montaje, Asesoría Técnica en sitio (8 hrs)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Horas</label>
+          <input type="number" class="form-control" id="horas" min="1" value="1">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Precio por Hora ($MX)</label>
+          <input type="number" class="form-control" id="precio" step="0.01" placeholder="0.00">
+        </div>
+        <div class="col-md-3 d-grid">
+          <button class="btn btn-primary" onclick="agregarProducto()">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA DE COTIZACIÓN -->
+  <div class="card mb-4">
+    <div class="card-header">Resumen de Renta</div>
+    <div class="card-body">
+      <table class="table table-bordered" id="tablaProductos">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Descripción</th>
+            <th>Horas</th>
+            <th>Precio por Hora</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Se agregan dinámicamente -->
+        </tbody>
+      </table>
+
+      <!-- TOTALES -->
+      <div class="text-end">
+        <p><strong>Subtotal:</strong> $<span id="subtotal">0.00</span></p>
+        <p><strong>IVA (16%):</strong> $<span id="iva">0.00</span></p>
+        <h5><strong>Total:</strong> $<span id="total">0.00</span></h5>
+      </div>
+      <div class="d-flex justify-content-between mt-4">
+        <a href="menu.html" class="btn btn-outline-primary btn-lg">
+          <i class="bi bi-arrow-left-circle"></i> Volver al Menú
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Contenedor para ambos botones alineados a la derecha -->
+<div class="d-flex justify-content-end gap-3 mt-3">
+  <button class="btn btn-secondary btn-lg" onclick="guardarCotizacion()">
+    <i class="bi bi-save"></i> Guardar Cotización
+  </button>
+  <button class="btn btn-success btn-lg" onclick="generarPDF()">
+    Generar Cotización (EXCEL)
+  </button>
+</div>
+</div>
+
+
+
+<!-- SCRIPTS -->
+<script>
+  $(document).ready(function () {
+    $('#descripcion').select2({
+      placeholder: 'Selecciona un equipo',
+      allowClear: true
+    });
+
+    $('#descripcion').on('change', function () {
+      const precio = $('#descripcion option:selected').data('precio');
+      $('#precio').val(precio || '');
+    });
+  });
+
+  function guardarContacto() {
+    const nombre = $('#nuevoNombre').val().trim();
+    const telefono = $('#nuevoTelefono').val().trim();
+    const correo = $('#nuevoCorreo').val().trim();
+
+    if (!nombre || !telefono || !correo) {
+      alert('Por favor completa todos los campos.');
+      return;
+    }
+
+    $('#contacto').val(nombre);
+    $('#telefono').val(telefono);
+    $('#correo').val(correo);
+    $('#modalContacto').modal('hide');
+  }
+
+  let contador = 0;
+
+  function agregarProducto() {
+    const descripcion = $('#descripcion').val();
+    const horas = parseFloat($('#horas').val());
+    const precio = parseFloat($('#precio').val());
+
+    if (!descripcion || isNaN(horas) || isNaN(precio) || horas <= 0 || precio <= 0) {
+      alert('Por favor llena todos los campos correctamente.');
+      return;
+    }
+
+    const subtotal = horas * precio;
+    contador++;
+
+    const fila = `
+      <tr>
+        <td>${contador}</td>
+        <td>${descripcion}</td>
+        <td>${horas}</td>
+        <td>$${precio.toFixed(2)}</td>
+        <td>$${subtotal.toFixed(2)}</td>
+        <td><button class="btn btn-sm btn-danger" onclick="eliminarFila(this)">Eliminar</button></td>
+      </tr>
+    `;
+
+    $('#tablaProductos tbody').append(fila);
+    actualizarTotales();
+    limpiarCampos();
+  }
+
+  function eliminarFila(boton) {
+    $(boton).closest('tr').remove();
+    actualizarNumeracion();
+    actualizarTotales();
+  }
+
+  function actualizarNumeracion() {
+    contador = 0;
+    $('#tablaProductos tbody tr').each(function () {
+      contador++;
+      $(this).find('td:first').text(contador);
+    });
+  }
+
+  function actualizarTotales() {
+    let subtotal = 0;
+    $('#tablaProductos tbody tr').each(function () {
+      const textoSubtotal = $(this).find('td').eq(4).text().replace('$', '').trim();
+      subtotal += parseFloat(textoSubtotal);
+    });
+
+    const iva = subtotal * 0.16;
+    const total = subtotal + iva;
+
+    $('#subtotal').text(subtotal.toFixed(2));
+    $('#iva').text(iva.toFixed(2));
+    $('#total').text(total.toFixed(2));
+  }
+
+  function limpiarCampos() {
+    $('#descripcion').val(null).trigger('change');
+    $('#horas').val('1');
+    $('#precio').val('');
+  }
+
+  function generarPDF() {
+    const element = document.getElementById('cotizacion');
+    const opciones = {
+      margin: 10,
+      filename: 'cotizacion_avhouse.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opciones).from(element).save();
+  }
+
+  function guardarCotizacion() {
+  const cotizacion = [];
+
+  $('#tablaProductos tbody tr').each(function () {
+    const descripcion = $(this).find('td').eq(1).text();
+    const horas = $(this).find('td').eq(2).text();
+    const precio = $(this).find('td').eq(3).text();
+    const subtotal = $(this).find('td').eq(4).text();
+
+    cotizacion.push({ descripcion, horas, precio, subtotal });
+  });
+
+  const datos = {
+    cliente: $('#contacto').val(),
+    total: $('#total').text(),
+    productos: cotizacion,
+    fecha: new Date().toLocaleString()
+  };
+
+  localStorage.setItem('ultimaCotizacion', JSON.stringify(datos));
+
+  window.location.href = "historial_cotizacion.html";
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+</body>
+</html>
